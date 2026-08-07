@@ -1,10 +1,13 @@
 /**
  * TOEFL Batch Registration — backend for the registration form.
  *
- * Handles two kinds of events, both POSTed as JSON:
- *  - Registration (default / no "type" field): logged to the "Registrations" tab.
- *  - Payment link click ("type": "payment_click"): logged to the "PaymentClicks" tab,
- *    recording which of the 3 tiers (token/partial/full) the registrant clicked.
+ * Handles two kinds of events, both POSTed as JSON, both logged to the single
+ * "Registrations" tab:
+ *  - Registration (default / no "type" field): appends a new row.
+ *  - Payment link click ("type": "payment_click"): finds that registrant's row
+ *    (matched by email, falling back to phone) and fills in the "Payment Option
+ *    Clicked" / "Last Payment Click Time" columns on it. If no matching row is
+ *    found, a new row is appended so the click isn't lost.
  *    Note: this tracks CLICKS on the payment link, not confirmed payment — the
  *    actual transaction happens on Leap Scholar's payment page, outside this
  *    script's visibility. Reconcile against your payment gateway for who actually paid.
@@ -23,10 +26,10 @@
  */
 
 const REG_SHEET_NAME = "Registrations";
-const REG_HEADERS = ["Timestamp", "Name", "Email", "Phone", "Source", "Page URL"];
-
-const CLICKS_SHEET_NAME = "PaymentClicks";
-const CLICKS_HEADERS = ["Timestamp", "Name", "Email", "Phone", "Tier", "Amount", "Source", "Page URL"];
+const REG_HEADERS = [
+  "Timestamp", "Name", "Email", "Phone", "Source", "Page URL",
+  "Payment Option Clicked", "Last Payment Click Time"
+];
 
 function doPost(e) {
   try {
@@ -57,7 +60,7 @@ function logRegistration_(data) {
   }
 
   const sheet = getOrCreateSheet_(REG_SHEET_NAME, REG_HEADERS);
-  sheet.appendRow([new Date(), name, email, phone, source, page]);
+  sheet.appendRow([new Date(), name, email, phone, source, page, "", ""]);
 
   return jsonResponse_({ status: "success" });
 }
@@ -71,10 +74,47 @@ function logPaymentClick_(data) {
   const source = cleanString_(data.source);
   const page = cleanString_(data.page);
 
-  const sheet = getOrCreateSheet_(CLICKS_SHEET_NAME, CLICKS_HEADERS);
-  sheet.appendRow([new Date(), name, email, phone, tier, amount, source, page]);
+  const sheet = getOrCreateSheet_(REG_SHEET_NAME, REG_HEADERS);
+  const label = tier + (amount ? " (₹" + amount + ")" : "");
+  const now = new Date();
+
+  const rowIndex = findLatestRegistrationRow_(sheet, email, phone);
+
+  if (rowIndex) {
+    const paymentCol = REG_HEADERS.indexOf("Payment Option Clicked") + 1;
+    const timeCol = REG_HEADERS.indexOf("Last Payment Click Time") + 1;
+    const existing = cleanString_(sheet.getRange(rowIndex, paymentCol).getValue());
+    const newValue = existing ? existing + "; " + label : label;
+    sheet.getRange(rowIndex, paymentCol).setValue(newValue);
+    sheet.getRange(rowIndex, timeCol).setValue(now);
+  } else {
+    sheet.appendRow([now, name, email, phone, source, page, label, now]);
+  }
 
   return jsonResponse_({ status: "success" });
+}
+
+// Searches column B (Email) then column D (Phone) from the bottom up, so a
+// person who registered more than once gets their most recent row updated.
+function findLatestRegistrationRow_(sheet, email, phone) {
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) return null;
+
+  const emailCol = REG_HEADERS.indexOf("Email") + 1;
+  const phoneCol = REG_HEADERS.indexOf("Phone") + 1;
+  const numRows = lastRow - 1;
+  const emails = sheet.getRange(2, emailCol, numRows, 1).getValues();
+  const phones = sheet.getRange(2, phoneCol, numRows, 1).getValues();
+
+  const targetEmail = email.toLowerCase();
+  for (let i = numRows - 1; i >= 0; i--) {
+    const rowEmail = cleanString_(emails[i][0]).toLowerCase();
+    const rowPhone = cleanString_(phones[i][0]);
+    if ((targetEmail && rowEmail === targetEmail) || (phone && rowPhone === phone)) {
+      return i + 2; // data starts at row 2; i is 0-indexed within that range
+    }
+  }
+  return null;
 }
 
 function getOrCreateSheet_(sheetName, headers) {
@@ -87,6 +127,15 @@ function getOrCreateSheet_(sheetName, headers) {
     sheet.appendRow(headers);
     sheet.getRange(1, 1, 1, headers.length).setFontWeight("bold");
     sheet.setFrozenRows(1);
+  } else {
+    // Migrate older sheets (fewer columns) up to the current header set.
+    const existingCount = sheet.getLastColumn();
+    if (existingCount < headers.length) {
+      const missing = headers.slice(existingCount);
+      const range = sheet.getRange(1, existingCount + 1, 1, missing.length);
+      range.setValues([missing]);
+      range.setFontWeight("bold");
+    }
   }
   return sheet;
 }

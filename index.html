@@ -371,6 +371,7 @@
         .success-modal {
             background: var(--background); border-radius: 20px; padding: 48px 40px;
             text-align: center; max-width: 480px; width: 100%;
+            max-height: 90vh; overflow-y: auto;
             transform: scale(0.9); transition: transform 0.3s ease;
         }
         .modal-overlay.show .success-modal { transform: scale(1); }
@@ -533,7 +534,7 @@
                     </div>
                     <h1 class="hero-headline">TOEFL Pilot Launch Offer</h1>
                     <p class="hero-subheadline">Study abroad starts here. Official TOEFL exam booking + 4 weeks of live coaching, bundled into a single registration.</p>
-                    <p class="hero-description">Register once and it's all arranged for you — exam slot, live classes, mock tests and expert feedback. Only serious, registered students will be enrolled in this pilot batch.</p>
+                    <p class="hero-description">Register once and it's all arranged for you — live classes, mock tests and expert feedback.</p>
                     <button class="cta-button" onclick="scrollToRegistration()">
                         Register Now
                         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -581,7 +582,7 @@
     <div class="urgency-strip">
         <div class="container">
             <p class="urgency-text">
-                🔥 <span class="limited">Limited pilot batch</span> — Only serious, registered students will be enrolled. Register now to secure your seat!
+                🔥 <span class="limited">Limited pilot batch</span> — Register now to secure your seat!
             </p>
         </div>
     </div>
@@ -815,20 +816,15 @@
             <p>You're confirmed for the TOEFL Pilot Batch. Choose how you'd like to secure your seat below.</p>
             <div class="success-slot-detail" id="successDetail"></div>
             <div class="pay-tier-grid">
-                <a href="https://leapscholar.com/pay/user-payment/msiqohqt-fakw" target="_blank" rel="noopener" class="pay-tier-card" onclick="trackPaymentClick('Token', 3000)">
-                    <span class="pay-tier-tag">Hold my seat</span>
-                    <span class="pay-tier-amount">₹3,000</span>
-                    <span class="pay-tier-desc">Token amount — lock in your seat, pay the rest before batch starts.</span>
-                </a>
-                <a href="https://leapscholar.com/pay/user-payment/msiqqnxb-cu1x" target="_blank" rel="noopener" class="pay-tier-card pay-tier-card--highlight" onclick="trackPaymentClick('Partial', 12999)">
-                    <span class="pay-tier-tag">Most chosen</span>
-                    <span class="pay-tier-amount">₹12,999</span>
-                    <span class="pay-tier-desc">Partial payment — pay most of it now, settle the small balance later.</span>
-                </a>
-                <a href="https://leapscholar.com/pay/user-payment/msiqj2l1-89fk" target="_blank" rel="noopener" class="pay-tier-card" onclick="trackPaymentClick('Full', 15999)">
-                    <span class="pay-tier-tag">All done</span>
+                <a href="https://leapscholar.com/pay/user-payment/msiqj2l1-89fk" target="_blank" rel="noopener" class="pay-tier-card pay-tier-card--highlight" onclick="trackPaymentClick('Full', 15999)">
+                    <span class="pay-tier-tag">Pay in full</span>
                     <span class="pay-tier-amount">₹15,999</span>
                     <span class="pay-tier-desc">Full payment — pay once, nothing pending, seat fully confirmed.</span>
+                </a>
+                <a href="https://leapscholar.com/pay/user-payment/msiqohqt-fakw" target="_blank" rel="noopener" class="pay-tier-card" onclick="trackPaymentClick('Token', 3000)">
+                    <span class="pay-tier-tag">Hold my seat</span>
+                    <span class="pay-tier-amount">₹3,000 <span style="font-weight:500;font-size:0.85rem;color:var(--text-muted);">now</span></span>
+                    <span class="pay-tier-desc">Token amount now — pay the remaining ₹12,999 later before the batch starts.</span>
                 </a>
             </div>
             <p style="font-size:13px;color:var(--text-muted);margin-top:16px;">Questions? <a href="mailto:contact@leapscholar.com" style="color:var(--primary);">contact@leapscholar.com</a></p>

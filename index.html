@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leap Scholar – TOEFL Pilot Batch Registration</title>
+    <title>Leap Scholar – TOEFL Batch Registration</title>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -207,6 +207,7 @@
             background: var(--background); border-radius: 16px; padding: 28px;
             border: 1px solid rgba(79,70,229,0.08); transition: all 0.3s ease;
             flex: 0 1 calc(33.333% - 16px); max-width: calc(33.333% - 16px);
+            min-width: 0;
         }
         .expect-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: rgba(79,70,229,0.15); }
         .expect-card-icon {
@@ -237,6 +238,7 @@
             background: var(--background); border-radius: 16px; padding: 32px 20px;
             text-align: center; box-shadow: var(--shadow-sm); border: 1px solid rgba(79,70,229,0.06);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-width: 0;
         }
         .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
         .stat-number {
@@ -292,6 +294,7 @@
             border: 2px solid #E2E8F0; border-radius: 12px; padding: 14px 16px;
             cursor: pointer; transition: all 0.2s ease; position: relative;
             background: white; text-align: left; user-select: none;
+            min-width: 0;
         }
         .slot-card:hover:not(.slot-full) { border-color: var(--primary); background: #F5F4FF; }
         .slot-card.slot-selected { border-color: var(--primary); background: #EEF2FF; }
@@ -349,6 +352,7 @@
         .testimonial-card {
             background: var(--gradient-indigo); border-radius: 16px; padding: 28px;
             transition: transform 0.3s ease; border: 1px solid rgba(255,255,255,0.08);
+            min-width: 0;
         }
         .testimonial-card:hover { transform: scale(1.03); }
         .testimonial-quote { color: rgba(255,255,255,0.9); font-size: 1rem; line-height: 1.7; margin-bottom: 20px; font-style: italic; }
@@ -423,6 +427,7 @@
         /* ── FOOTER ── */
         .footer { background: linear-gradient(135deg, var(--gradient-indigo) 0%, var(--deep-indigo) 100%); padding: 60px 0 40px; color: white; }
         .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1.5fr 1fr; gap: 40px; }
+        .footer-section { min-width: 0; }
         .footer-section h4 { font-size: 1.125rem; font-weight: 600; margin-bottom: 20px; color: white; }
         .footer-cta-btn {
             display: inline-flex; align-items: center; gap: 8px;
@@ -493,6 +498,14 @@
         @media (max-width: 480px) {
             .container { padding: 0 16px; }
             .success-modal { padding: 32px 24px; }
+            .header-left img { height: 30px; }
+            .header-cta { padding: 8px 12px; font-size: 12px; flex-shrink: 0; }
+            .stat-card { padding: 20px 12px; }
+            .stat-number { font-size: 1.75rem; }
+            .stat-suffix { font-size: 1.1rem; }
+            .sticky-countdown-strip { padding: 10px 16px; padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); gap: 10px; }
+            .sticky-strip-text { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
+            .sticky-register-btn { flex-shrink: 0; padding: 8px 16px; font-size: 13px; }
         }
     </style>
 </head>
@@ -530,10 +543,10 @@
                 <div class="hero-text">
                     <div class="hero-badge">
                         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                        Official ETS TOEFL · Pilot Batch · ₹15,999/-
+                        Official ETS TOEFL Batch · ₹15,999/-
                     </div>
-                    <h1 class="hero-headline">TOEFL Pilot Launch Offer</h1>
-                    <p class="hero-subheadline">Study abroad starts here. Official TOEFL exam booking + 4 weeks of live coaching, bundled into a single registration.</p>
+                    <h1 class="hero-headline">TOEFL Exam Coaching</h1>
+                    <p class="hero-subheadline">Study abroad starts here. Your one-stop solution for official TOEFL exam booking + 4 weeks of live coaching.</p>
                     <p class="hero-description">Register once and it's all arranged for you — live classes, mock tests and expert feedback.</p>
                     <button class="cta-button" onclick="scrollToRegistration()">
                         Register Now
@@ -542,7 +555,7 @@
                 </div>
                 <div class="hero-image">
                     <div class="hero-online-card">
-                        <div class="card-label">TOEFL Pilot Batch</div>
+                        <div class="card-label">TOEFL Batch</div>
                         <div class="card-title">Batch Details</div>
                         <div class="schedule-row">
                             <div class="schedule-icon">📅</div>
@@ -582,7 +595,7 @@
     <div class="urgency-strip">
         <div class="container">
             <p class="urgency-text">
-                🔥 <span class="limited">Limited pilot batch</span> — Register now to secure your seat!
+                🔥 <span class="limited">Limited batch</span> — Register now to secure your seat!
             </p>
         </div>
     </div>
@@ -647,7 +660,7 @@
                         </svg>
                     </div>
                     <h3>Official TOEFL Exam Booking</h3>
-                    <p class="expect-card-description">We book your official ETS TOEFL exam slot for you as part of your registration — no separate application or payment to arrange.</p>
+                    <p class="expect-card-description">Register with us and your official ETS TOEFL exam slot is booked — no extra payment for the exam.</p>
                 </div>
                 <div class="expect-card bonus-card animate-on-scroll">
                     <div class="expect-card-icon" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#FFD700,#FFA500);">
@@ -656,7 +669,7 @@
                         </svg>
                     </div>
                     <h3>Santa AI Access</h3>
-                    <p class="expect-card-description">On-demand AI practice for speaking &amp; writing with instant feedback, so you can keep improving between live classes.</p>
+                    <p class="expect-card-description">Practice speaking and writing anytime and get instant feedback.</p>
                 </div>
                 <div class="expect-card animate-on-scroll">
                     <div class="expect-card-icon" style="display:flex;align-items:center;justify-content:center;">
@@ -665,7 +678,7 @@
                         </svg>
                     </div>
                     <h3>4 Weeks Live Coaching</h3>
-                    <p class="expect-card-description">Structured evening classes covering all four TOEFL sections, taught live by ETS master trainers — not recorded playback.</p>
+                    <p class="expect-card-description">Live evening classes covering all four TOEFL sections, taught by expert trainers.</p>
                 </div>
                 <div class="expect-card animate-on-scroll">
                     <div class="expect-card-icon" style="display:flex;align-items:center;justify-content:center;">
@@ -696,7 +709,7 @@
                 </div>
             </div>
             <div class="limited-seats-badge animate-on-scroll" style="margin:32px auto 0;">
-                🎁 Worth much more, separately. Yours for just ₹15,999 in the pilot batch.
+                🎁 Worth much more, separately. Yours for just ₹15,999 in this batch.
             </div>
         </div>
     </section>
@@ -734,13 +747,13 @@
     <section class="registration-section" id="registration">
         <div class="container">
             <div class="registration-content">
-                <h2 class="section-title animate-on-scroll">Register for the Pilot Batch</h2>
+                <h2 class="section-title animate-on-scroll">Register for the Batch</h2>
                 <div class="limited-seats-badge animate-on-scroll">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
                         <circle cx="12" cy="10" r="3"/>
                     </svg>
-                    Limited pilot batch — Register Before It's Full! · ₹15,999/-
+                    Limited batch — Register Before It's Full! · ₹15,999/-
                 </div>
 
                 <form class="registration-form" id="registrationForm" onsubmit="handleSubmit(event)">
@@ -765,7 +778,7 @@
                         <p class="error-message" id="emailError">Please enter a valid email address.</p>
                     </div>
 
-                    <button type="submit" class="register-button" id="registerBtn">Register for the Pilot Batch</button>
+                    <button type="submit" class="register-button" id="registerBtn">Register for the Batch</button>
                 </form>
             </div>
         </div>
@@ -813,7 +826,7 @@
                 </svg>
             </div>
             <h3>You're Registered!</h3>
-            <p>You're confirmed for the TOEFL Pilot Batch. Choose how you'd like to secure your seat below.</p>
+            <p>You're confirmed for the TOEFL Batch. Choose how you'd like to secure your seat below.</p>
             <div class="success-slot-detail" id="successDetail"></div>
             <div class="pay-tier-grid">
                 <a href="https://leapscholar.com/pay/user-payment/msiqj2l1-89fk" target="_blank" rel="noopener" class="pay-tier-card pay-tier-card--highlight" onclick="trackPaymentClick('Full', 15999)">
@@ -881,7 +894,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Leap Scholar. All rights reserved. TOEFL&reg; is a registered trademark of ETS. This pilot batch is independently offered by Leap Scholar.</p>
+                <p>&copy; 2026 Leap Scholar. All rights reserved. TOEFL&reg; is a registered trademark of ETS. This batch is independently offered by Leap Scholar.</p>
             </div>
         </div>
     </footer>
@@ -889,7 +902,7 @@
     <!-- Sticky Bottom Strip -->
     <div class="sticky-countdown-strip">
         <div class="sticky-strip-text">
-            🎯 <strong>TOEFL Pilot Batch</strong> — Starts 31 Aug 2026 · ₹15,999/- · Seats filling fast
+            🎯 <strong>TOEFL Batch</strong> — Starts 31 Aug 2026 · ₹15,999/- · Seats filling fast
         </div>
         <button class="sticky-register-btn" onclick="scrollToRegistration()">Register Now</button>
     </div>
@@ -966,7 +979,7 @@
             if (APPS_SCRIPT_URL.includes('PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE')) {
                 alert('Setup needed: add your Apps Script Web App URL in the CONFIG section of this file before the form can save registrations.');
                 btn.disabled = false;
-                btn.textContent = 'Register for the Pilot Batch';
+                btn.textContent = 'Register for the Batch';
                 return;
             }
 
@@ -986,7 +999,7 @@
                 if (result.status === 'error') {
                     alert('Something went wrong while registering. Please try again.');
                     btn.disabled = false;
-                    btn.textContent = 'Register for the Pilot Batch';
+                    btn.textContent = 'Register for the Batch';
                     return;
                 }
 
@@ -1004,7 +1017,7 @@
                 alert('Something went wrong. Please try again.');
             } finally {
                 btn.disabled = false;
-                btn.textContent = 'Register for the Pilot Batch';
+                btn.textContent = 'Register for the Batch';
             }
         }
 

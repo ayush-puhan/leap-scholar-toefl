@@ -423,6 +423,7 @@
         }
         .pay-tier-amount { font-size: 1.4rem; font-weight: 700; color: var(--deep-indigo); }
         .pay-tier-desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.4; }
+        .pay-tier-note { font-size: 11px; color: var(--text-muted); opacity: 0.8; font-style: italic; margin-top: 2px; }
 
         /* ── FOOTER ── */
         .footer { background: linear-gradient(135deg, var(--gradient-indigo) 0%, var(--deep-indigo) 100%); padding: 60px 0 40px; color: white; }
@@ -543,7 +544,7 @@
                 <div class="hero-text">
                     <div class="hero-badge">
                         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                        Official ETS TOEFL Batch · ₹15,999/-
+                        Official ETS TOEFL Batch · <span style="text-decoration:line-through;opacity:0.6;">₹30,000</span> ₹15,999/-
                     </div>
                     <h1 class="hero-headline">TOEFL Exam Coaching</h1>
                     <p class="hero-subheadline">Study abroad starts here. Your one-stop solution for official TOEFL exam booking + 4 weeks of live coaching.</p>
@@ -724,8 +725,8 @@
                     <p class="stat-label">students guided globally</p>
                 </div>
                 <div class="stat-card animate-on-scroll">
-                    <div class="stat-number" data-target="94" data-suffix="%"><span class="counter">0</span><span class="stat-suffix">%</span></div>
-                    <p class="stat-label">admission success rate</p>
+                    <div class="stat-number" data-target="95" data-suffix="%"><span class="counter">0</span><span class="stat-suffix">%</span></div>
+                    <p class="stat-label">TOEFL test clearance rate</p>
                 </div>
                 <div class="stat-card animate-on-scroll">
                     <div class="stat-number" data-target="5000" data-suffix="+"><span class="counter">0</span><span class="stat-suffix">+</span></div>
@@ -837,7 +838,8 @@
                 <a href="https://leapscholar.com/pay/user-payment/msiqohqt-fakw" target="_blank" rel="noopener" class="pay-tier-card" onclick="trackPaymentClick('Token', 3000)">
                     <span class="pay-tier-tag">Hold my seat</span>
                     <span class="pay-tier-amount">₹3,000 <span style="font-weight:500;font-size:0.85rem;color:var(--text-muted);">now</span></span>
-                    <span class="pay-tier-desc">Token amount now — pay the remaining ₹12,999 later before the batch starts.</span>
+                    <span class="pay-tier-desc">Pay the Token amount now — remaining ₹12,999 later.</span>
+                    <span class="pay-tier-note">*Token amount is non-refundable.</span>
                 </a>
             </div>
             <p style="font-size:13px;color:var(--text-muted);margin-top:16px;line-height:1.6;">Already paid the ₹3,000 token?<br><a href="https://leapscholar.com/pay/user-payment/msiqqnxb-cu1x" target="_blank" rel="noopener" onclick="trackPaymentClick('Balance', 12999)" style="color:var(--primary);font-weight:600;">Pay your remaining ₹12,999 balance here</a></p>

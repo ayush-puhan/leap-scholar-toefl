@@ -468,6 +468,109 @@
         }
         .sticky-register-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255,255,255,0.3); }
 
+        /* ── BROCHURE ── */
+        .brochure-section { padding: 70px 0; background: var(--accent-bg); }
+        .brochure-card {
+            display: flex; align-items: center; gap: 28px;
+            background: var(--background); border-radius: 20px; padding: 32px 36px;
+            box-shadow: var(--shadow-md); border: 1px solid rgba(79,70,229,0.08);
+            max-width: 780px; margin: 0 auto;
+        }
+        .brochure-icon {
+            flex-shrink: 0; width: 64px; height: 64px; border-radius: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 6px 16px rgba(79,70,229,0.3);
+        }
+        .brochure-info { flex: 1; min-width: 0; }
+        .brochure-info h3 { font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+        .brochure-info p { font-size: 0.9375rem; color: var(--text-muted); }
+        .brochure-actions { display: flex; gap: 12px; flex-shrink: 0; }
+        .brochure-btn {
+            display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+            padding: 12px 22px; border-radius: 10px; font-weight: 600; font-size: 14px;
+            border: none; cursor: pointer; font-family: inherit; text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .brochure-btn-primary { background: var(--primary); color: white; }
+        .brochure-btn-primary:hover { background: var(--deep-indigo); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .brochure-btn-secondary { background: var(--accent-bg); color: var(--text-dark); border: 1px solid #E2E8F0; }
+        .brochure-btn-secondary:hover { background: #EEF2FF; border-color: var(--primary); }
+
+        .brochure-modal-overlay {
+            position: fixed; inset: 0; background: rgba(11,15,59,0.75); z-index: 10000;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: opacity 0.25s ease; padding: 24px;
+        }
+        .brochure-modal-overlay.show { opacity: 1; visibility: visible; }
+        .brochure-modal {
+            background: var(--background); border-radius: 16px; overflow: hidden;
+            width: 100%; max-width: 900px; height: 90vh;
+            display: flex; flex-direction: column;
+            transform: scale(0.96); transition: transform 0.25s ease;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .brochure-modal-overlay.show .brochure-modal { transform: scale(1); }
+        .brochure-modal-header {
+            display: flex; align-items: center; justify-content: space-between; gap: 16px;
+            padding: 14px 20px; background: var(--deep-indigo); color: white; flex-shrink: 0;
+        }
+        .brochure-modal-header h4 { font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .brochure-modal-header-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+        .brochure-modal-icon-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 34px; height: 34px; border-radius: 8px; border: none;
+            background: rgba(255,255,255,0.1); color: white; cursor: pointer;
+            transition: background 0.2s ease; text-decoration: none;
+        }
+        .brochure-modal-icon-btn:hover { background: rgba(255,255,255,0.22); }
+        .brochure-modal-body {
+            flex: 1; position: relative; background: #2A2E5C; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .brochure-page-img {
+            max-width: 100%; max-height: 100%; width: auto; height: auto;
+            object-fit: contain; display: block; box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+            opacity: 0; transition: opacity 0.25s ease;
+            user-select: none; -webkit-user-drag: none;
+        }
+        .brochure-page-img.loaded { opacity: 1; }
+        .brochure-modal-loading {
+            position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 12px; color: rgba(255,255,255,0.85); font-size: 14px; background: #2A2E5C;
+            transition: opacity 0.3s ease; z-index: 1;
+        }
+        .brochure-modal-loading.hide { opacity: 0; pointer-events: none; }
+        .brochure-spinner {
+            width: 32px; height: 32px; border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.25); border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+        .brochure-nav-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 40px; height: 40px; border-radius: 50%; border: none;
+            background: rgba(255,255,255,0.15); color: white; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s ease; z-index: 2; backdrop-filter: blur(4px);
+        }
+        .brochure-nav-btn:hover { background: rgba(255,255,255,0.3); }
+        .brochure-nav-btn:disabled { opacity: 0; pointer-events: none; }
+        .brochure-nav-prev { left: 14px; }
+        .brochure-nav-next { right: 14px; }
+        .brochure-page-indicator {
+            position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.45); color: white; font-size: 12.5px; font-weight: 600;
+            padding: 6px 14px; border-radius: 999px; z-index: 2; letter-spacing: 0.02em;
+        }
+        @media (max-width: 768px) {
+            .brochure-card { flex-direction: column; text-align: center; padding: 28px 24px; }
+            .brochure-actions { width: 100%; flex-direction: column; }
+            .brochure-btn { width: 100%; justify-content: center; }
+            .brochure-modal-overlay { padding: 0; }
+            .brochure-modal { max-width: 100%; height: 100%; border-radius: 0; }
+            .brochure-nav-btn { width: 36px; height: 36px; }
+        }
+
         /* ── ANIMATE ON SCROLL ── */
         .animate-on-scroll { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
         .animate-on-scroll.animated { opacity: 1; transform: translateY(0); }
@@ -714,6 +817,67 @@
             </div>
         </div>
     </section>
+
+    <!-- Brochure -->
+    <section class="brochure-section" id="brochure">
+        <div class="container">
+            <div class="brochure-card animate-on-scroll">
+                <div class="brochure-icon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/>
+                    </svg>
+                </div>
+                <div class="brochure-info">
+                    <h3>TOEFL Batch Brochure</h3>
+                    <p>Full batch schedule, curriculum breakdown, and everything included — in one PDF.</p>
+                </div>
+                <div class="brochure-actions">
+                    <button type="button" class="brochure-btn brochure-btn-primary" onclick="openBrochure()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        View Brochure
+                    </button>
+                    <a href="assets/TOEFL-Batch-Brochure.pdf" download class="brochure-btn brochure-btn-secondary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Download
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brochure Viewer Modal -->
+    <div class="brochure-modal-overlay" id="brochureModal">
+        <div class="brochure-modal">
+            <div class="brochure-modal-header">
+                <h4>TOEFL Batch Brochure</h4>
+                <div class="brochure-modal-header-actions">
+                    <a href="assets/TOEFL-Batch-Brochure.pdf" download class="brochure-modal-icon-btn" aria-label="Download brochure">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    </a>
+                    <a href="assets/TOEFL-Batch-Brochure.pdf" target="_blank" rel="noopener" class="brochure-modal-icon-btn" aria-label="Open in new tab">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </a>
+                    <button type="button" class="brochure-modal-icon-btn" onclick="closeBrochure()" aria-label="Close">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="brochure-modal-body" id="brochureBody">
+                <div class="brochure-modal-loading" id="brochureLoading">
+                    <div class="brochure-spinner"></div>
+                    <span>Loading brochure…</span>
+                </div>
+                <button type="button" class="brochure-nav-btn brochure-nav-prev" id="brochurePrevBtn" onclick="brochureGo(-1)" aria-label="Previous page">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                <img class="brochure-page-img" id="brochurePageImg" alt="TOEFL Batch Brochure page">
+                <button type="button" class="brochure-nav-btn brochure-nav-next" id="brochureNextBtn" onclick="brochureGo(1)" aria-label="Next page">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+                <div class="brochure-page-indicator" id="brochurePageIndicator">1 / 3</div>
+            </div>
+        </div>
+    </div>
 
     <!-- 4. Stats -->
     <section class="stats-section" id="trust-section">
@@ -1049,6 +1213,81 @@
         document.getElementById('successModal').addEventListener('click', function(e) {
             if (e.target === this) this.classList.remove('show');
         });
+
+        // ─────────────────────────────────────────────────────────
+        // BROCHURE VIEWER
+        // ─────────────────────────────────────────────────────────
+        const BROCHURE_PAGE_COUNT = 3;
+        const BROCHURE_PAGE_URL = (n) => `assets/brochure/page-${n}.jpg`;
+        let brochurePage = 1;
+        let brochureOpened = false;
+
+        function brochurePreload(n) {
+            if (n < 1 || n > BROCHURE_PAGE_COUNT) return;
+            const img = new Image();
+            img.src = BROCHURE_PAGE_URL(n);
+        }
+
+        function brochureRender() {
+            const img = document.getElementById('brochurePageImg');
+            const loading = document.getElementById('brochureLoading');
+            img.classList.remove('loaded');
+            loading.classList.remove('hide');
+            img.onload = () => { img.classList.add('loaded'); loading.classList.add('hide'); };
+            img.src = BROCHURE_PAGE_URL(brochurePage);
+
+            document.getElementById('brochurePageIndicator').textContent = `${brochurePage} / ${BROCHURE_PAGE_COUNT}`;
+            document.getElementById('brochurePrevBtn').disabled = brochurePage === 1;
+            document.getElementById('brochureNextBtn').disabled = brochurePage === BROCHURE_PAGE_COUNT;
+
+            brochurePreload(brochurePage + 1);
+            brochurePreload(brochurePage - 1);
+        }
+
+        function brochureGo(delta) {
+            const next = brochurePage + delta;
+            if (next < 1 || next > BROCHURE_PAGE_COUNT) return;
+            brochurePage = next;
+            brochureRender();
+        }
+
+        function openBrochure() {
+            if (!brochureOpened) {
+                brochureOpened = true;
+                brochurePage = 1;
+                brochureRender();
+            }
+            document.getElementById('brochureModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBrochure() {
+            document.getElementById('brochureModal').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('brochureModal').addEventListener('click', function(e) {
+            if (e.target === this) closeBrochure();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('brochureModal').classList.contains('show')) return;
+            if (e.key === 'Escape') closeBrochure();
+            if (e.key === 'ArrowRight') brochureGo(1);
+            if (e.key === 'ArrowLeft') brochureGo(-1);
+        });
+
+        // Swipe support for mobile
+        (function() {
+            const body = document.getElementById('brochureBody');
+            let touchStartX = 0;
+            body.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+            body.addEventListener('touchend', (e) => {
+                const dx = e.changedTouches[0].clientX - touchStartX;
+                if (Math.abs(dx) < 40) return;
+                brochureGo(dx < 0 ? 1 : -1);
+            }, { passive: true });
+        })();
 
         // ─────────────────────────────────────────────────────────
         // SCROLL ANIMATIONS
